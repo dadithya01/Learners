@@ -1,6 +1,8 @@
 module edu.ijse.learners {
     requires javafx.controls;
     requires javafx.fxml;
+    requires static lombok;
+    requires jakarta.persistence;
     exports edu.ijse.learners.controllers;
 
 
