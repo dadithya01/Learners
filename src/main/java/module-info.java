@@ -3,6 +3,7 @@ module edu.ijse.learners {
     requires javafx.fxml;
     requires static lombok;
     requires jakarta.persistence;
+    requires org.hibernate.orm.core;
     exports edu.ijse.learners.controllers;
 
 
