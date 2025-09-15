@@ -16,7 +16,7 @@
             <Font name="FreeMono Bold" size="50.0" />
          </font>
       </Label>
-      <TextField fx:id="inputUserName" layoutX="630.0" layoutY="269.0" prefHeight="80.0" prefWidth="412.0" promptText="User Name..." style="-fx-background-radius: 50;">
+      <TextField fx:id="inputUserName" focusTraversable="false" layoutX="630.0" layoutY="269.0" prefHeight="80.0" prefWidth="412.0" promptText="User Name..." style="-fx-background-radius: 50;">
          <font>
             <Font size="25.0" />
          </font>
@@ -46,7 +46,7 @@
             <Image url="@../assets/pictures/now_go_stickman.png" />
          </image>
       </ImageView>
-      <PasswordField fx:id="inputPassword" layoutX="633.0" layoutY="428.0" prefHeight="80.0" prefWidth="412.0" promptText="Password..." style="-fx-background-radius: 50;">
+      <PasswordField fx:id="inputPassword" focusTraversable="false" layoutX="633.0" layoutY="428.0" prefHeight="80.0" prefWidth="412.0" promptText="Password..." style="-fx-background-radius: 50;">
          <font>
             <Font size="25.0" />
          </font>
