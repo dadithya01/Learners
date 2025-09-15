@@ -1,15 +1,18 @@
 package edu.ijse.learners.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class UserDTO {
-    private String id;
-    private String userName;
+    private String userId;
+    private String name;
+    private String age;
+    private String email;
     private String password;
+    private String contactNumber;
     private String role;
 }
