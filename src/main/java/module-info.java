@@ -5,6 +5,7 @@ module edu.ijse.learners {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     exports edu.ijse.learners.controllers;
+    requires java.naming;
 
 
     opens edu.ijse.learners.controllers to javafx.fxml;
