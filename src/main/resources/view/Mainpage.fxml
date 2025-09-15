@@ -26,15 +26,15 @@
             <Reflection />
          </effect>
          <font>
-            <Font name="Impact" size="50.0" />
+            <Font name="FreeMono Bold" size="50.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Label layoutX="662.0" layoutY="61.0" text="Welcome...">
+      <Label layoutX="608.0" layoutY="61.0" text="Welcome...">
          <font>
-            <Font name="Impact" size="70.0" />
+            <Font name="FreeMono Bold" size="70.0" />
          </font>
       </Label>
    </children>
