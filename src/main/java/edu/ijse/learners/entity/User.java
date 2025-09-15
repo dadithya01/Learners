@@ -1,39 +1,35 @@
 package edu.ijse.learners.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-enum UserRole {
-    ADMIN,
-    RECEPTIONIST
-}
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+
 @Entity
-@Table(name = "users") // Changed to 'users' to avoid SQL reserved keyword conflicts
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_Id", nullable = false, unique = true)
-    private String id;
+    @Column(name = "user_id", unique = true, nullable = false)
+    private String userId;
 
-    @Column(name = "user_Name", nullable = false, unique = true)
-    private String userName;
+    @Column(name = "user_name", nullable = false, length = 100)
+    private String name;
 
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
+    private String age;
+
+    @Column(name = "user_email", nullable = false, unique = true)
+    private String email;
+
+    @Column(name = "user_password", nullable = false)
     private String password;
 
-    @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private UserRole role;
+    @Column(name = "user_contact", nullable = false, length = 15)
+    private String contactNumber;
 
-    public User(String userName, String password, UserRole role) {
-        this.userName = userName;
-        this.password = password;
-        this.role = role;
-    }
+    @Column(name = "user_role", nullable = false)
+    private String role;
 }
