@@ -1,9 +1,13 @@
 package edu.ijse.learners.dao.custom.impl;
 
 import edu.ijse.learners.dao.custom.StudentDAO;
+import edu.ijse.learners.entity.Lesson;
 import edu.ijse.learners.entity.Payment;
 import edu.ijse.learners.entity.Student;
-import edu.ijse.learners.util.FactoryConfiguration;
+import edu.ijse.learners.configuration.FactoryConfiguration;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -16,10 +20,54 @@ public class StudentDAOImpl implements StudentDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.factoryConfiguration();
 
     @Override
+    public boolean existsByField(String field, String fieldValue) throws Exception {
+        CriteriaBuilder criteriaBuilder = factoryConfiguration.getSession().getCriteriaBuilder();
+        CriteriaQuery<Student> studentCriteriaQuery = criteriaBuilder.createQuery(Student.class);
+        Root<Student> root = studentCriteriaQuery.from(Student.class);
+        studentCriteriaQuery.select(root).where(criteriaBuilder.equal(root.get(field), fieldValue));
+        Query<Student> query = factoryConfiguration.getSession().createQuery(studentCriteriaQuery);
+        return !query.getResultList().isEmpty();
+    }
+
+    @Override
+    public List<Payment> getAllPayments() {
+        try (Session session = factoryConfiguration.getSession()) {
+            Query<Payment> query = session.createQuery("select s.payments from Student s", Payment.class);
+            return query.list() == null ? null : query.list();
+        }
+    }
+
+    @Override
+    public List<Payment> getAllPaymentsBySid(String sid) {
+        try (Session session = factoryConfiguration.getSession()) {
+            Query<Payment> query = session.createQuery("select s.payments from Student s where s.id = :sid", Payment.class);
+            query.setParameter("sid", sid);
+            return query.list() == null ? null : query.list();
+        }
+    }
+
+    @Override
+    public List<Lesson> getAllLessonsBySid(String sid) {
+        try (Session session = factoryConfiguration.getSession()) {
+            Query<Lesson> query = session.createQuery("select s.lessons from Student s where s.id = :sid", Lesson.class);
+            query.setParameter("sid", sid);
+            return query.list() == null ? null : query.list();
+        }
+    }
+
+    @Override
     public List<Student> getAll() throws Exception {
         try (Session session = factoryConfiguration.getSession()) {
-            Query<Student> query = session.createQuery("from Student", Student.class);
-            return query.list();
+            Transaction transaction = session.beginTransaction();
+
+            List<Student> students = session.createQuery(
+                    "SELECT DISTINCT s FROM Student s LEFT JOIN FETCH s.lessons",
+                    Student.class
+            ).getResultList();
+
+            transaction.commit();
+
+            return students;
         }
     }
 
@@ -97,14 +145,6 @@ public class StudentDAOImpl implements StudentDAO {
         try (Session session = factoryConfiguration.getSession()) {
             Student student = session.get(Student.class, id);
             return Optional.ofNullable(student);
-        }
-    }
-
-    @Override
-    public List<Payment> getAllPayments() {
-        try (Session session = factoryConfiguration.getSession()) {
-            Query<Payment> query = session.createQuery("select s.payments from Student s", Payment.class);
-            return query.list() == null ? null : query.list();
         }
     }
 }
