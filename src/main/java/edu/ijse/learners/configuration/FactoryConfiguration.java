@@ -1,4 +1,4 @@
-package edu.ijse.learners.util;
+package edu.ijse.learners.configuration;
 
 import edu.ijse.learners.entity.User;
 import org.hibernate.Session;
