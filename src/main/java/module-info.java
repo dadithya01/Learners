@@ -6,6 +6,7 @@ module edu.ijse.learners {
     requires org.hibernate.orm.core;
     exports edu.ijse.learners.controllers;
     requires java.naming;
+    requires java.sql;
 
 
     opens edu.ijse.learners.controllers to javafx.fxml;
