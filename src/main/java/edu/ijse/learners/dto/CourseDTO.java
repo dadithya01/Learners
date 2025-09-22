@@ -2,20 +2,23 @@ package edu.ijse.learners.dto;
 
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
+@Builder
+
 public class CourseDTO {
     private String courseId;
-    private String name;
-    private String description;
+    private String course_name;
     private String duration;
-    private String fees;
-    private List<InstructorDTO> instructors;
-    private List<LessonDTO> lessons;
-    private List<StudentDTO> students;
+    private double fee;
+    private String description;
+    private String instructorId;
+    @Builder.Default
+    private ArrayList<StudentCourseDetailsDTO> studentCourseDetails = new ArrayList<>();
+    @Builder.Default
+    private ArrayList<LessonDTO> lessons = new ArrayList<>();
 }

@@ -7,14 +7,13 @@ import java.sql.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
+
 public class PaymentDTO {
     private String paymentId;
-    private String studentId;
     private Date paymentDate;
-    private String type;
-    private BigDecimal amount;
+    private double amount;
+    private String paymentMethod;
     private String status;
+    private String studentId;
 }

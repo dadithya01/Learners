@@ -4,15 +4,12 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@ToString
+@Data
 public class UserDTO {
     private String userId;
-    private String name;
-    private String age;
-    private String email;
+    private String username;
     private String password;
-    private String contactNumber;
     private String role;
+    private String email;
+    private String status;
 }
