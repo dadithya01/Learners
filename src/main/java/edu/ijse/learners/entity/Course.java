@@ -13,42 +13,30 @@ import java.util.List;
 @Entity
 @Table(name = "course")
 public class Course {
+
     @Id
-    @Column(name = "course_id", nullable = false)
+    @Column
     private String courseId;
 
-    @Column(name = "course_name", nullable = false, length = 50)
-    private String name;
+    @Column(nullable = false)
+    private String course_name;
 
-    @Column(name = "course_description", nullable = false, length = 200)
-    private String description;
-
-    @Column(name = "course_duration", nullable = false, length = 200)
+    @Column(nullable = false)
     private String duration;
 
-    @Column(name = "course_fee", nullable = false, length = 20)
-    private String fees;
+    @Column(nullable = false)
+    private double fee;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "course_instructor_associate",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "inst_id")
-    )
-    private List<Instructor> instructors;
+    @Column(nullable = false, length = 200)
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "instructorId", referencedColumnName = "instructorId")
+    private Instructor instructor;
 
     @OneToMany(
             mappedBy = "course",
-            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
-    private List<Lesson> lessons;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "student_course_associate",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "stud_id")
-    )
-    private List<Student> students;
+    private List<Lessons> lessons;
 }

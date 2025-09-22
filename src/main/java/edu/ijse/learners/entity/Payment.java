@@ -12,25 +12,26 @@ import java.sql.Date;
 @Setter
 
 @Entity
-@Table(name = "payment")
+@Table(name = "payments")
 public class Payment {
+
     @Id
-    @Column(name = "payment_id",  nullable = false)
+    @Column
     private String paymentId;
 
     @ManyToOne
-    @JoinColumn(name = "stud_id", referencedColumnName = "stud_id")
-    private Student student;
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    private Students student;
 
-    @Column(name = "payment_date", nullable = false)
+    @Column
     private Date paymentDate;
 
-    @Column(name = "payment_type", nullable = false)
-    private String type;
+    @Column(nullable = false)
+    private double amount;
 
-    @Column(name = "payment_amount", nullable = false,  scale = 2)
-    private BigDecimal amount;
+    @Column(nullable = false)
+    private String paymentMethod;
 
-    @Column(name = "payment_status", nullable = false)
+    @Column(nullable = false)
     private String status;
 }

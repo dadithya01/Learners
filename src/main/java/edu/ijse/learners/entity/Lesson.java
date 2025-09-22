@@ -3,6 +3,8 @@ package edu.ijse.learners.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.sql.Timestamp;
 
 @AllArgsConstructor
@@ -11,33 +13,34 @@ import java.sql.Timestamp;
 @Setter
 
 @Entity
-@Table(name = "lesson")
+@Table(name = "lessons")
 public class Lesson {
+
     @Id
-    @Column(name = "lesson_id",  nullable = false)
+    @Column
     private String lessonId;
 
     @ManyToOne
-    @JoinColumn(name = "inst_id", referencedColumnName = "inst_id")
-    private Instructor instructor;
+    @JoinColumn(name = "studentId", referencedColumnName = "studentId")
+    private Students student;
 
     @ManyToOne
-    @JoinColumn(name = "course_id", referencedColumnName = "course_id")
+    @JoinColumn(name = "courseId", referencedColumnName = "courseId")
     private Course course;
 
     @ManyToOne
-    @JoinColumn(name = "stud_id", referencedColumnName = "stud_id")
-    private Student student;
+    @JoinColumn(name = "instructorId", referencedColumnName = "instructorId")
+    private Instructor instructor;
 
-    @Column(name = "lesson_name", nullable = false)
-    private String name;
+    @Column
+    private Date lessonDate;
 
-    @Column(name = "lesson_start_time",  nullable = false)
-    private Timestamp start_time;
+    @Column
+    private Time startTime;
 
-    @Column(name = "lesson_end_time",  nullable = false)
-    private Timestamp end_time;
+    @Column
+    private Time endTime;
 
-    @Column(name = "lesson_status", nullable = false)
+    @Column
     private String status;
 }

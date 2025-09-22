@@ -14,39 +14,41 @@ import java.util.List;
 @Entity
 @Table(name = "student")
 public class Student {
+
     @Id
-    @Column(name = "stud_id", unique = true, nullable = false)
+    @Column
     private String studentId;
 
-    @Column(name = "stud_fname", nullable = false, length = 50)
+    @Column
     private String firstName;
 
-    @Column(name = "stud_lname", nullable = false, length = 50)
+    @Column
     private String lastName;
 
-    @Column(name = "stud_dob", nullable = false)
-    private Date dob;
-
-    @Column(name = "stud_email", nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "stud_contact", nullable = false, length = 15)
-    private String contactNumber;
+    @Column(nullable = false, unique = true)
+    private String phone;
 
-    @Column(name = "stud_address", nullable = false)
+    @Column(nullable = false)
     private String address;
 
-    @OneToMany(
-            mappedBy = "student",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL
-    )
-    private List<Payment> payments;
+    @Column(nullable = false)
+    private Date dob;
+
+    @Column(nullable = false)
+    private Date registrationDate;
 
     @OneToMany(
             mappedBy = "student",
-            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL
     )
     private List<Lesson> lessons;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private List<Payment> payments;
 }
