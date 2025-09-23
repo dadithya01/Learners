@@ -9,12 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class UserTM {
-    private String userId;
-    private String username;
-    private String password;
-    private String role;
+public class InstructorTM {
+    private String instructorId;
+    private String firstName;
+    private String lastName;
     private String email;
-    private String status;
+    private String contact;
+    private String specialization;
+    private String availability;
     private Pane action;
 }
