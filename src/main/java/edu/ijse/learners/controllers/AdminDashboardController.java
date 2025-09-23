@@ -2,9 +2,17 @@ package edu.ijse.learners.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+
+import java.io.IOException;
 
 public class AdminDashboardController {
+
+    @FXML
+    private Pane controllerPane;
 
     @FXML
     void courseManagement(ActionEvent event) {
@@ -37,8 +45,10 @@ public class AdminDashboardController {
     }
 
     @FXML
-    void studentManagement(ActionEvent event) {
-
+    void studentManagement(ActionEvent event) throws IOException {
+        controllerPane.getChildren().clear();
+        AnchorPane load = FXMLLoader.load(getClass().getResource("/view/StudentManagements.fxml"));
+        controllerPane.getChildren().add(load);
     }
 
     @FXML

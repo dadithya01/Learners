@@ -1,5 +1,8 @@
 package edu.ijse.learners.controllers;
 
+import edu.ijse.learners.bo.BOFactory;
+import edu.ijse.learners.bo.custom.CourseBO;
+import edu.ijse.learners.bo.custom.StudentBO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
@@ -10,10 +13,28 @@ import javafx.scene.input.MouseEvent;
 
 public class StudentManagementController {
     @FXML
+    private TableColumn<?, ?> ColAddress;
+
+    @FXML
+    private TextField DOB;
+
+    @FXML
+    private TableColumn<?, ?> Emailcol;
+
+    @FXML
+    private TextField RegDate;
+
+    @FXML
+    private TableColumn<?, ?> RegDateCol;
+
+    @FXML
     private TextField address;
 
     @FXML
     private TableColumn<?, ?> colContact;
+
+    @FXML
+    private TableColumn<?, ?> colCourses;
 
     @FXML
     private TableColumn<?, ?> colDob;
@@ -31,9 +52,6 @@ public class StudentManagementController {
     private TextField contactNo;
 
     @FXML
-    private DatePicker dobPicker;
-
-    @FXML
     private TextField eMail;
 
     @FXML
@@ -47,6 +65,12 @@ public class StudentManagementController {
 
     @FXML
     private TableView<?> tblStudents;
+
+    private final StudentBO studentsBO = (StudentBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.STUDENT);
+    private final CourseBO courseBO = (CourseBO) BOFactory.getInstance().getBO(BOFactory.BOTypes.COURSE);
+
+    private final String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+    private final String phoneRegex = "^07\\d{8}$";
 
     @FXML
     void Add(ActionEvent event) {
@@ -77,4 +101,5 @@ public class StudentManagementController {
     void update(ActionEvent event) {
 
     }
+
 }
