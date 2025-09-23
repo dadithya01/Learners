@@ -38,5 +38,5 @@ public class Course {
             mappedBy = "course",
             cascade = CascadeType.ALL
     )
-    private List<Lessons> lessons;
+    private List<Lesson> lessons;
 }
