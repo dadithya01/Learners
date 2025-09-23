@@ -21,7 +21,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
-    private Students student;
+    private Student student;
 
     @Column
     private Date paymentDate;
