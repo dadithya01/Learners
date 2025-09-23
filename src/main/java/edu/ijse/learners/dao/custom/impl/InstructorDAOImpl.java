@@ -1,13 +1,8 @@
 package edu.ijse.learners.dao.custom.impl;
 
-import edu.ijse.learners.dao.custom.StudentDAO;
-import edu.ijse.learners.entity.Lesson;
-import edu.ijse.learners.entity.Payment;
-import edu.ijse.learners.entity.Student;
 import edu.ijse.learners.configuration.FactoryConfiguration;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import edu.ijse.learners.dao.custom.InstructorDAO;
+import edu.ijse.learners.entity.Instructor;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,17 +10,17 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentDAOImpl implements StudentDAO {
+public class InstructorDAOImpl implements InstructorDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public List<Student> getAll() throws Exception {
+    public List<Instructor> getAll() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Student> query = session.createQuery("from Students ",Student.class);
-            List<Student> studentsList = query.list();
-            return studentsList;
+            Query<Instructor> query = session.createQuery("from Instructor ", Instructor.class);
+            List<Instructor> instructorList = query.list();
+            return instructorList;
         }finally {
             session.close();
         }
@@ -35,25 +30,24 @@ public class StudentDAOImpl implements StudentDAO {
     public String getLastId() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT stu.id FROM Students stu ORDER BY stu.id DESC",
-                    String.class).setMaxResults(1);
-            List<String> studentList = query.list();
-            if (studentList.isEmpty()) {
+            Query<String> query = session.createQuery("SELECT i.instructorId FROM Instructor i ORDER BY i.instructorId DESC", String.class)
+                    .setMaxResults(1);
+            List<String> instructorsList = query.list();
+            if (instructorsList.isEmpty()) {
                 return null;
-
             }
-            return studentList.get(0);
-        }finally {
+            return instructorsList.getFirst();
+        } finally {
             session.close();
         }
     }
 
     @Override
-    public boolean save(Student student) throws Exception {
+    public boolean save(Instructor instructor) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(student);
+            session.persist(instructor);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -65,17 +59,15 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean update(Student student) throws Exception {
+    public boolean update(Instructor instructor) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
-
-        try{
-            session.merge(student);
+        try {
+            session.merge(instructor);
             transaction.commit();
             return true;
         }catch (Exception e){
-            if (transaction != null) transaction.rollback();
-            e.printStackTrace();
+            transaction.rollback();
             return false;
         }finally {
             session.close();
@@ -86,19 +78,21 @@ public class StudentDAOImpl implements StudentDAO {
     public boolean delete(String id) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
-        try{
-            Student student = session.get(Student.class,id);
-            if (student != null){
-                session.remove(student);
+        try {
+            Instructor instructor = (Instructor) session.get(Instructor.class, id);
+            if (instructor != null) {
+                session.remove(instructor);
                 transaction.commit();
                 return true;
             }
             return false;
-        }catch (Exception e){
-            if (transaction != null) transaction.rollback();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
             e.printStackTrace();
             return false;
-        }finally {
+        } finally {
             session.close();
         }
     }
@@ -107,7 +101,7 @@ public class StudentDAOImpl implements StudentDAO {
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT s.studentId FROM Students s", String.class);
+            Query<String> query = session.createQuery("SELECT i.instructorId FROM Instructor i", String.class);
             return query.list();
         } finally {
             session.close();
@@ -115,11 +109,11 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Optional<Student> findById(String id) throws Exception {
+    public Optional<Instructor> findById(String id) throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Student student = session.get(Student.class, id);
-            return Optional.ofNullable(student);
+            Instructor instructor = session.get(Instructor.class, id);
+            return Optional.ofNullable(instructor);
         } finally {
             session.close();
         }
@@ -134,11 +128,11 @@ public class StudentDAOImpl implements StudentDAO {
             throw new RuntimeException(e);
         }
         if (lastId == null) {
-            return "S-001";
+            return "I-001";
         } else {
             int num = Integer.parseInt(lastId.split("-")[1]);
             num++;
-            return String.format("S-%03d", num);
+            return String.format("I-%03d", num);
         }
     }
 }

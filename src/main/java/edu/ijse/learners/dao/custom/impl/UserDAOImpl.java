@@ -1,13 +1,8 @@
 package edu.ijse.learners.dao.custom.impl;
 
-import edu.ijse.learners.dao.custom.StudentDAO;
-import edu.ijse.learners.entity.Lesson;
-import edu.ijse.learners.entity.Payment;
-import edu.ijse.learners.entity.Student;
 import edu.ijse.learners.configuration.FactoryConfiguration;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import edu.ijse.learners.dao.custom.UserDAO;
+import edu.ijse.learners.entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,17 +10,17 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class StudentDAOImpl implements StudentDAO {
+public class UserDAOImpl implements UserDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public List<Student> getAll() throws Exception {
+    public List<User> getAll() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Student> query = session.createQuery("from Students ",Student.class);
-            List<Student> studentsList = query.list();
-            return studentsList;
+            Query<User> query = session.createQuery("from User", User.class);
+            List<User> list = query.getResultList();
+            return list;
         }finally {
             session.close();
         }
@@ -34,8 +29,9 @@ public class StudentDAOImpl implements StudentDAO {
     @Override
     public String getLastId() throws Exception {
         Session session = factoryConfiguration.getSession();
+
         try {
-            Query<String> query = session.createQuery("SELECT stu.id FROM Students stu ORDER BY stu.id DESC",
+            Query<String> query = session.createQuery("SELECT use.id FROM User use ORDER BY use.id DESC",
                     String.class).setMaxResults(1);
             List<String> studentList = query.list();
             if (studentList.isEmpty()) {
@@ -49,15 +45,17 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean save(Student student) throws Exception {
+    public boolean save(User user) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
+
         try {
-            session.persist(student);
+            session.persist(user);
             transaction.commit();
             return true;
         }catch (Exception e){
             transaction.rollback();
+            e.printStackTrace();
             return false;
         }finally {
             session.close();
@@ -65,16 +63,16 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean update(Student student) throws Exception {
+    public boolean update(User user) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
-        try{
-            session.merge(student);
+        try {
+            session.merge(user);
             transaction.commit();
             return true;
         }catch (Exception e){
-            if (transaction != null) transaction.rollback();
+            transaction.rollback();
             e.printStackTrace();
             return false;
         }finally {
@@ -87,9 +85,9 @@ public class StudentDAOImpl implements StudentDAO {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try{
-            Student student = session.get(Student.class,id);
-            if (student != null){
-                session.remove(student);
+            User user = session.get(User.class,id);
+            if (user != null) {
+                session.remove(user);
                 transaction.commit();
                 return true;
             }
@@ -107,7 +105,7 @@ public class StudentDAOImpl implements StudentDAO {
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT s.studentId FROM Students s", String.class);
+            Query<String> query = session.createQuery("SELECT u.userId FROM User u", String.class);
             return query.list();
         } finally {
             session.close();
@@ -115,12 +113,13 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Optional<Student> findById(String id) throws Exception {
+    public Optional<User> findById(String id) throws Exception {
         Session session = factoryConfiguration.getSession();
+
         try {
-            Student student = session.get(Student.class, id);
-            return Optional.ofNullable(student);
-        } finally {
+            User user = session.get(User.class,id);
+            return Optional.ofNullable(user);
+        }finally {
             session.close();
         }
     }
@@ -134,11 +133,11 @@ public class StudentDAOImpl implements StudentDAO {
             throw new RuntimeException(e);
         }
         if (lastId == null) {
-            return "S-001";
+            return "U-001";
         } else {
             int num = Integer.parseInt(lastId.split("-")[1]);
             num++;
-            return String.format("S-%03d", num);
+            return String.format("U-%03d", num);
         }
     }
 }
