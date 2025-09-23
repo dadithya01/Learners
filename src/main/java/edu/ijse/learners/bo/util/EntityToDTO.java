@@ -2,172 +2,161 @@ package edu.ijse.learners.bo.util;
 
 import edu.ijse.learners.dao.DAOFactory;
 import edu.ijse.learners.dao.custom.StudentDAO;
-import edu.ijse.learners.dto.LessonDTO;
-import edu.ijse.learners.dto.PaymentDTO;
-import edu.ijse.learners.dto.StudentDTO;
+import edu.ijse.learners.dto.*;
 import edu.ijse.learners.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class EntityToDTO {
-    private final StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.STUDENT);
-
-
-    public StudentDTO getStudentDTO(Student student) throws Exception {
-        return new StudentDTO(
-                student.getStudentId(),
-                student.getFirstName(),
-                student.getLastName(),
-                student.getDob(),
-                student.getEmail(),
-                student.getContactNumber(),
-                student.getAddress(),
-                toPaymentDTOList(student.getPayments()),
-                toLessonDTOList(student.getLessons())
-        );
+    public CourseDTO getCourseDTO(Course course){
+        CourseDTO dto=new CourseDTO();
+        dto.setCourseId(course.getCourseId());
+        dto.setCourse_name(course.getCourse_name());
+        dto.setDuration(course.getDuration());
+        dto.setFee(course.getFee());
+        dto.setDescription(course.getDescription());
+        dto.setInstructorId(course.getInstructor().getInstructorId());
+        return dto;
     }
 
-    public List<StudentDTO> toStudentDTOList(List<Student> studentList) throws Exception {
-        List<StudentDTO> studentDTOList = new ArrayList<>();
-        studentList.forEach(student -> {
-            try {
-                studentDTOList.add(getStudentDTO(student));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return studentDTOList;
+    public Course getCourseEntity(CourseDTO dto){
+        Course course=new Course();
+        Instructor instructor =new Instructor();
+        course.setCourseId(dto.getCourseId());
+        course.setCourse_name(dto.getCourse_name());
+        course.setDuration(dto.getDuration());
+        course.setFee(dto.getFee());
+        course.setDescription(dto.getDescription());
+        instructor.setInstructorId(dto.getInstructorId());
+        course.setInstructor(instructor);
+        return course;
     }
 
-    public Student getStudentEntity(StudentDTO studentDTO) throws Exception {
-        return new Student(
-                studentDTO.getStudentId(),
-                studentDTO.getFirstName(),
-                studentDTO.getLastName(),
-                studentDTO.getDob(),
-                studentDTO.getEmail(),
-                studentDTO.getContactNumber(),
-                studentDTO.getAddress(),
-                toPaymentEntityList(studentDTO.getPayments()),
-                toLessonEntityList(studentDTO.getLessons())
-        );
+    public InstructorDTO getInstructorsDTO(Instructor instructor){
+        InstructorDTO dto=new InstructorDTO();
+        dto.setInstructorId(instructor.getInstructorId());
+        dto.setFirstName(instructor.getFirst_name());
+        dto.setLastName(instructor.getLast_name());
+        dto.setEmail(instructor.getEmail());
+        dto.setContact(instructor.getPhone());
+        dto.setSpecialization(instructor.getSpecialization());
+        dto.setAvailability(instructor.getAvailability());
+        return dto;
     }
 
-    public List<Student> toStudentEntityList(List<StudentDTO> studentList) throws Exception {
-        List<Student> studentEntityList = new ArrayList<>();
-        studentList.forEach(student -> {
-            try {
-                studentEntityList.add(getStudentEntity(student));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return studentEntityList;
+    public Instructor getInstructorsEntity(InstructorDTO dto){
+        Instructor instructor =new Instructor();
+        instructor.setInstructorId(dto.getInstructorId());
+        instructor.setFirst_name(dto.getFirstName());
+        instructor.setLast_name(dto.getLastName());
+        instructor.setEmail(dto.getEmail());
+        instructor.setPhone(dto.getContact());
+        instructor.setSpecialization(dto.getSpecialization());
+        instructor.setAvailability(dto.getAvailability());
+        return instructor;
     }
 
-    public PaymentDTO getPaymentDTO(Payment payment) throws Exception {
-        return new PaymentDTO(
-                payment.getPaymentId(),
-                payment.getStudent().getStudentId(),
-                payment.getPaymentDate(),
-                payment.getType(),
-                payment.getAmount(),
-                payment.getStatus()
-        );
+    public LessonDTO getLessonsDTO(Lesson lessons){
+        LessonDTO dto=new LessonDTO();
+        dto.setLessonId(lessons.getLessonId());
+        dto.setLessonDate(lessons.getLessonDate());
+        dto.setStartTime(lessons.getStartTime());
+        dto.setEndTime(lessons.getEndTime());
+        dto.setStudentId(lessons.getStudent().getStudentId());
+        dto.setCourseId(lessons.getCourse().getCourseId());
+        dto.setInstructorId(lessons.getInstructor().getInstructorId());
+        return dto;
     }
 
-    public List<PaymentDTO> toPaymentDTOList(List<Payment> paymentList) throws Exception {
-        List<PaymentDTO> paymentDTOList = new ArrayList<>();
-        paymentList.forEach(payment -> {
-            try {
-                paymentDTOList.add(getPaymentDTO(payment));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return paymentDTOList;
+    public  Lesson getLessonsEntity(LessonDTO dto){
+        Lesson lessons=new Lesson();
+        Instructor instructor =new Instructor();
+        Course course=new Course();
+        Student student=new Student();
+        lessons.setLessonId(dto.getLessonId());
+        lessons.setLessonDate(dto.getLessonDate());
+        lessons.setStartTime(dto.getStartTime());
+        lessons.setEndTime(dto.getEndTime());
+        student.setStudentId(dto.getStudentId());
+        lessons.setStudent(student);
+        course.setCourseId(dto.getCourseId());
+        lessons.setCourse(course);
+        instructor.setInstructorId(dto.getInstructorId());
+        lessons.setInstructor(instructor);
+        return lessons;
     }
 
-    public Payment getPaymentEntity(PaymentDTO paymentDTO) throws Exception {
-        return new Payment(
-                paymentDTO.getPaymentId(),
-                studentDAO.findById(paymentDTO.getStudentId()).orElse(null),
-                paymentDTO.getPaymentDate(),
-                paymentDTO.getType(),
-                paymentDTO.getAmount(),
-                paymentDTO.getStatus()
-        );
+    public PaymentDTO getPaymentsDTO(Payment payments){
+        PaymentDTO dto=new PaymentDTO();
+        dto.setPaymentId(payments.getPaymentId());
+        dto.setPaymentDate(payments.getPaymentDate());
+        dto.setAmount(payments.getAmount());
+        dto.setAmount(payments.getAmount());
+        dto.setPaymentMethod(payments.getPaymentMethod());
+        dto.setStatus(payments.getStatus());
+        dto.setStudentId(payments.getStudent().getStudentId());
+        return dto;
     }
 
-    public List<Payment> toPaymentEntityList(List<PaymentDTO> paymentDTOList) throws Exception {
-        List<Payment> paymentEntityList = new ArrayList<>();
-        paymentDTOList.forEach(paymentDTO -> {
-            try {
-                paymentEntityList.add(getPaymentEntity(paymentDTO));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return paymentEntityList;
+    public Payment getPaymentsEntity(PaymentDTO dto){
+        Payment payments=new Payment();
+        Student students=new Student();
+        payments.setPaymentId(dto.getPaymentId());
+        payments.setPaymentDate(dto.getPaymentDate());
+        payments.setAmount(dto.getAmount());
+        payments.setPaymentMethod(dto.getPaymentMethod());
+        payments.setStatus(dto.getStatus());
+        students.setStudentId(dto.getStudentId());
+        payments.setStudent(students);
+        return payments;
     }
 
-    public LessonDTO getLessonDTO(Lesson lesson) throws Exception {
-        return new LessonDTO(
-                lesson.getLessonId(),
-                lesson.getInstructor().getInstructorId(),
-                lesson.getCourse().getCourseId(),
-                lesson.getStudent().getStudentId(),
-                lesson.getName(),
-                lesson.getStart_time(),
-                lesson.getEnd_time(),
-                lesson.getStatus()
-        );
+    public StudentDTO getStudentsDTO(Student students){
+        StudentDTO dto=new StudentDTO();
+        dto.setStudentId(students.getStudentId());
+        dto.setFirstName(students.getFirstName());
+        dto.setLastName(students.getLastName());
+        dto.setEmail(students.getEmail());
+        dto.setPhone(students.getPhone());
+        dto.setAddress(students.getAddress());
+        dto.setDob(students.getDob());
+        dto.setRegistrationDate(students.getRegistrationDate());
+        return dto;
     }
 
-    public List<LessonDTO> toLessonDTOList(List<Lesson> lessonList) throws Exception {
-        List<LessonDTO> lessonDTOList = new ArrayList<>();
-        lessonList.forEach(lesson -> {
-            try {
-                lessonDTOList.add(getLessonDTO(lesson));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return lessonDTOList;
+    public Student getStudentsEntity(StudentDTO dto){
+        Student students=new Student();
+        students.setStudentId(dto.getStudentId());
+        students.setFirstName(dto.getFirstName());
+        students.setLastName(dto.getLastName());
+        students.setEmail(dto.getEmail());
+        students.setPhone(dto.getPhone());
+        students.setAddress(dto.getAddress());
+        students.setDob(dto.getDob());
+        students.setRegistrationDate(dto.getRegistrationDate());
+        return students;
     }
 
-    public Lesson getLessonEntity(LessonDTO lessonDTO) throws Exception {
-        Instructor instructor = new Instructor();
-        instructor.setInstructorId(lessonDTO.getInstructorId());
-
-        Course course = new Course();
-        course.setCourseId(lessonDTO.getCourseId());
-
-        Student student = new Student();
-        student.setStudentId(lessonDTO.getStudentId());
-
-        return new Lesson(
-                lessonDTO.getLessonId(),
-                instructor,
-                course,
-                student,
-                lessonDTO.getName(),
-                lessonDTO.getStart_time(),
-                lessonDTO.getEnd_time(),
-                lessonDTO.getStatus()
-        );
+    public UserDTO getUserDTO(User user){
+        UserDTO dto=new UserDTO();
+        dto.setUserId(user.getUserId());
+        dto.setUsername(user.getUserName());
+        dto.setPassword(user.getPassword());
+        dto.setRole(user.getRole());
+        dto.setEmail(user.getEmail());
+        dto.setStatus(user.getStatus());
+        return dto;
     }
 
-    public List<Lesson> toLessonEntityList(List<LessonDTO> lessonDTOList) throws Exception {
-        List<Lesson> lessonEntityList = new ArrayList<>();
-        lessonDTOList.forEach(lessonDTO -> {
-            try {
-                lessonEntityList.add(getLessonEntity(lessonDTO));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        return lessonEntityList;
+    public User getUserEntity(UserDTO dto){
+        User user=new User();
+        user.setUserId(dto.getUserId());
+        user.setUserName(dto.getUsername());
+        user.setPassword(dto.getPassword());
+        user.setRole(dto.getRole());
+        user.setEmail(dto.getEmail());
+        user.setStatus(dto.getStatus());
+        return user;
     }
 }
