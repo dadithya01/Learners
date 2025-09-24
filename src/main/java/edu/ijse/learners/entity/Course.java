@@ -41,11 +41,5 @@ public class Course {
             mappedBy = "course",
             cascade = CascadeType.ALL
     )
-    private List<StudentCourseDetails> studentCourseDetails;
-
-    @OneToMany(
-            mappedBy = "course",
-            cascade = CascadeType.ALL
-    )
     private List<Lessons> lessons;
 }

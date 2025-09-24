@@ -47,12 +47,6 @@ public class Students {
             mappedBy = "student",
             cascade = CascadeType.ALL
     )
-    private List<StudentCourseDetails> studentCourseDetails;
-
-    @OneToMany(
-            mappedBy = "student",
-            cascade = CascadeType.ALL
-    )
     private List<Lessons> lessons;
 
     @OneToMany(

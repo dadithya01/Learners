@@ -16,11 +16,11 @@
             <children>
                 <HBox prefHeight="60.0" prefWidth="379.0">
                     <children>
-                        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #000; -fx-background-radius: 5px; -fx-border-radius: 5px;" HBox.hgrow="ALWAYS">
+                        <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 100px; -fx-background-color: #dee2e6;" HBox.hgrow="ALWAYS">
                             <center>
-                                <Label fx:id="lblId" prefHeight="60.0" prefWidth="98.0" text="  0001" BorderPane.alignment="CENTER">
+                                <Label fx:id="lblId" prefHeight="44.0" prefWidth="137.0" text="  0001" BorderPane.alignment="CENTER">
                                     <font>
-                                        <Font name="Times New Roman" size="30.0" />
+                                        <Font name="System Bold" size="35.0" />
                                     </font>
                                 </Label>
                             </center>
@@ -30,14 +30,17 @@
                         </BorderPane>
                     </children>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Firstname">
+                        <Label prefHeight="30.0" prefWidth="79.0" text="Firstname">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtFirstName" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: transparent; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtFirstName" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
@@ -50,108 +53,138 @@
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Lastname">
+                        <Label prefHeight="30.0" prefWidth="86.0" text="Lastname">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtLastNam" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: #fff; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtLastNam" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Email">
+                        <Label prefHeight="30.0" prefWidth="41.0" text="Email">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtEmail" prefHeight="30.0" prefWidth="250.0" promptText="student@gmail.com" style="-fx-background-color: #fff; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtEmail" alignment="CENTER" prefHeight="39.0" prefWidth="296.0" promptText="student@gmail.com" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Contact">
+                        <Label prefHeight="30.0" prefWidth="92.0" text="Contact">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtContact" prefHeight="30.0" prefWidth="250.0" promptText="0000000000" style="-fx-background-color: #fff; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtContact" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="0000000000" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Specilization">
+                        <Label prefHeight="30.0" prefWidth="97.0" text="Specilization">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtSpecialization" prefHeight="30.0" prefWidth="250.0" promptText="car" style="-fx-background-color: #fff; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtSpecialization" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="car" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="29.0" prefWidth="379.0">
+                <HBox alignment="CENTER" prefHeight="29.0" prefWidth="379.0">
                     <children>
-                        <Label prefHeight="30.0" prefWidth="70.0" text="Availability">
+                        <Label prefHeight="29.0" prefWidth="102.0" text="Availability">
                             <HBox.margin>
                                 <Insets left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font>
                         </Label>
-                        <TextField fx:id="txtAvailability" prefHeight="30.0" prefWidth="250.0" promptText="available" style="-fx-background-color: #fff; -fx-border-width: 0 0 1px 0; -fx-border-color: #2a9d8f;">
+                        <TextField fx:id="txtAvailability" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="available" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
                         </TextField>
                     </children>
                     <VBox.margin>
                         <Insets top="25.0" />
                     </VBox.margin>
                 </HBox>
-                <HBox prefHeight="34.0" prefWidth="308.0">
+                <HBox alignment="CENTER" prefHeight="34.0" prefWidth="308.0">
                     <VBox.margin>
                         <Insets left="100.0" right="100.0" top="30.0" />
                     </VBox.margin>
                     <children>
-                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOncAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: linear-gradient(to right, #B2FEFA, #0ED2F7);" text="Save">
+                        <Button fx:id="btnSave" mnemonicParsing="false" onAction="#btnSaveOncAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Save" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="15.0" />
+                                <Font name="System Bold" size="25.0" />
                             </font>
                         </Button>
                     </children>
                 </HBox>
-                <HBox prefHeight="34.0" prefWidth="308.0">
+                <HBox alignment="CENTER" prefHeight="34.0" prefWidth="308.0">
                     <children>
-                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: #fff; -fx-border-color: linear-gradient(to right, #B2FEFA, #0ED2F7); -fx-border-width: 3px; -fx-border-radius: 5px;" text="Update" textFill="#00aaff">
+                        <Button fx:id="btnUpdate" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="34.0" prefWidth="180.0" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Update" textFill="WHITE">
                             <font>
-                                <Font name="System Bold" size="15.0" />
+                                <Font name="System Bold" size="25.0" />
                             </font>
                         </Button>
                     </children>
