@@ -11,7 +11,7 @@ import edu.ijse.learners.dto.InstructorDTO;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class InstructorPOPPageController  implements Initializable {
+public class InstructorPOPupPageController implements Initializable {
     public Label lblId;
     public TextField txtFirstName;
     public TextField txtLastNam;
