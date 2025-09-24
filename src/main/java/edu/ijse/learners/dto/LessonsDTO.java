@@ -1,17 +1,17 @@
 package edu.ijse.learners.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
-
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 
-public class LessonDTO {
+public class LessonsDTO {
     private String lessonId;
     private String studentId;
     private String courseId;

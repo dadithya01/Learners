@@ -1,9 +1,12 @@
 package edu.ijse.learners.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "student")
-public class Student {
+public class Students {
 
     @Id
     @Column
@@ -44,11 +47,19 @@ public class Student {
             mappedBy = "student",
             cascade = CascadeType.ALL
     )
-    private List<Lesson> lessons;
+    private List<StudentCourseDetails> studentCourseDetails;
 
     @OneToMany(
             mappedBy = "student",
             cascade = CascadeType.ALL
     )
-    private List<Payment> payments;
+    private List<Lessons> lessons;
+
+    @OneToMany(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private List<Payments> payments;
 }
+
+

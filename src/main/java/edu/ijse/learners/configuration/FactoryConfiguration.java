@@ -26,11 +26,12 @@ public class FactoryConfiguration {
             Configuration configuration = new Configuration();
             configuration.addProperties(prop);
 
-            configuration.addAnnotatedClass(Student.class);
+            configuration.addAnnotatedClass(Students.class);
+            configuration.addAnnotatedClass(StudentCourseDetails.class);
             configuration.addAnnotatedClass(Course.class);
             configuration.addAnnotatedClass(Instructor.class);
-            configuration.addAnnotatedClass(Lesson.class);
-            configuration.addAnnotatedClass(Payment.class);
+            configuration.addAnnotatedClass(Lessons.class);
+            configuration.addAnnotatedClass(Payments.class);
             configuration.addAnnotatedClass(User.class);
 
             sessionFactory = configuration.buildSessionFactory();

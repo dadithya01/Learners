@@ -1,17 +1,13 @@
 package edu.ijse.learners.dao.custom.impl;
 
-import edu.ijse.learners.dao.custom.StudentDAO;
-import edu.ijse.learners.entity.Lesson;
-import edu.ijse.learners.entity.Payment;
-import edu.ijse.learners.entity.Student;
 import edu.ijse.learners.configuration.FactoryConfiguration;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Root;
+import edu.ijse.learners.dao.custom.StudentDAO;
+import edu.ijse.learners.entity.Students;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,40 +16,11 @@ public class StudentDAOImpl implements StudentDAO {
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
     @Override
-    public List<Student> getAll() throws Exception {
-        Session session = factoryConfiguration.getSession();
-        try {
-            Query<Student> query = session.createQuery("from Students ",Student.class);
-            List<Student> studentsList = query.list();
-            return studentsList;
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public String getLastId() throws Exception {
-        Session session = factoryConfiguration.getSession();
-        try {
-            Query<String> query = session.createQuery("SELECT stu.id FROM Students stu ORDER BY stu.id DESC",
-                    String.class).setMaxResults(1);
-            List<String> studentList = query.list();
-            if (studentList.isEmpty()) {
-                return null;
-
-            }
-            return studentList.get(0);
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean save(Student student) throws Exception {
+    public boolean save(Students students) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(student);
+            session.persist(students);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -65,12 +32,12 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean update(Student student) throws Exception {
+    public boolean update(Students students) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
 
         try{
-            session.merge(student);
+            session.merge(students);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -83,11 +50,11 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public boolean delete(String id) throws Exception {
+    public boolean delete(String id) throws SQLException {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
         try{
-            Student student = session.get(Student.class,id);
+            Students student = session.get(Students.class,id);
             if (student != null){
                 session.remove(student);
                 transaction.commit();
@@ -98,6 +65,18 @@ public class StudentDAOImpl implements StudentDAO {
             if (transaction != null) transaction.rollback();
             e.printStackTrace();
             return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Students> getAll() throws Exception {
+        Session session = factoryConfiguration.getSession();
+        try {
+            Query<Students> query = session.createQuery("from Students ",Students.class);
+            List<Students> studentsList = query.list();
+            return studentsList;
         }finally {
             session.close();
         }
@@ -115,10 +94,29 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public Optional<Student> findById(String id) throws Exception {
+    public String getLastId() throws SQLException {
+       Session session = factoryConfiguration.getSession();
+       try {
+           Query<String> query = session.createQuery("SELECT stu.id FROM Students stu ORDER BY stu.id DESC",
+                   String.class).setMaxResults(1);
+           List<String> studentList = query.list();
+           if (studentList.isEmpty()) {
+               return null;
+
+           }
+           return studentList.get(0);
+       }finally {
+           session.close();
+       }
+    }
+
+
+
+    @Override
+    public Optional<Students> findById(String id) throws SQLException {
         Session session = factoryConfiguration.getSession();
         try {
-            Student student = session.get(Student.class, id);
+            Students student = session.get(Students.class, id);
             return Optional.ofNullable(student);
         } finally {
             session.close();

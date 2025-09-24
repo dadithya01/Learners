@@ -1,9 +1,11 @@
 package edu.ijse.learners.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -41,7 +43,7 @@ public class Instructor {
             mappedBy = "instructor",
             cascade = CascadeType.ALL
     )
-    private List<Lesson> lessons;
+    private List<Lessons> lessons;
 
     @OneToMany(
             mappedBy = "instructor",

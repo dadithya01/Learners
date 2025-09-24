@@ -3,31 +3,32 @@ package edu.ijse.learners.dao;
 import edu.ijse.learners.dao.custom.impl.*;
 
 public class DAOFactory {
-    private static DAOFactory DAOFactory;
+    private static DAOFactory daoFactory;
     private DAOFactory() {}
+
     public static DAOFactory getInstance() {
-        return DAOFactory == null ? DAOFactory = new DAOFactory() : DAOFactory;
-    }
-    public enum DAOTypes {
-        COURSE,
-        INSTRUCTORS,
-        LESSONS,
-        PAYMENTS,
-        STUDENT,
-        USER,
-        QUERY
+        return daoFactory == null ? (daoFactory = new DAOFactory()) : daoFactory;
     }
 
-    public SuperDAO getDAO(DAOTypes daoTypes) {
+    public <T extends SuperDAO> T getDAO(DAOTypes daoTypes) {
         return switch (daoTypes) {
-            case STUDENT -> new StudentDAOImpl();
-            case COURSE -> new CourseDAOImpl();
-            case INSTRUCTORS -> new InstructorDAOImpl();
-            case LESSONS -> new LessonDAOImpl();
-            case PAYMENTS -> new PaymentDAOImpl();
-            case USER -> new UserDAOImpl();
-            case QUERY -> new QueryDAOImpl();
-            default -> null;
+
+            case COURSE ->  (T) new CourseDAOImpl();
+
+            case INSTRUCTORS ->  (T) new InstructorDAOImpl();
+
+            case LESSONS ->  (T) new LessonsDAOImpl();
+
+            case PAYMENTS ->   (T) new PaymentsDAOImpl();
+
+            case STUDENT_COURSE_DETAILS ->  (T) new StudentCourseDetailsDAOImpl();
+
+            case STUDENTS -> (T) new StudentDAOImpl();
+
+            case USER -> (T) new UserDAOImpl();
+
+            case QUERY -> (T) new QueryDAOImpl();
+
         };
     }
 }

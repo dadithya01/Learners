@@ -1,11 +1,13 @@
 package edu.ijse.learners.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "lessons")
-public class Lesson {
+public class Lessons {
 
     @Id
     @Column
@@ -22,7 +24,7 @@ public class Lesson {
 
     @ManyToOne
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
-    private Student student;
+    private Students student;
 
     @ManyToOne
     @JoinColumn(name = "courseId", referencedColumnName = "courseId")

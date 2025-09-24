@@ -5,9 +5,11 @@ import edu.ijse.learners.dao.custom.QueryDAO;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
+
 public class QueryDAOImpl implements QueryDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
+
 
     @Override
     public int getStudentCountForLesson(String lessonId) {

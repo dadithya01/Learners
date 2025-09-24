@@ -1,10 +1,11 @@
 package edu.ijse.learners.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +21,7 @@ public class InstructorDTO {
     private String specialization;
     private String availability;
     @Builder.Default
-    private ArrayList<LessonDTO> lessons = new ArrayList<>();
+    private ArrayList<LessonsDTO> lessons = new  ArrayList<>();
     @Builder.Default
     private ArrayList<CourseDTO> courses = new ArrayList<>();
 }

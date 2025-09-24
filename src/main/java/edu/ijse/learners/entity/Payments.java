@@ -1,10 +1,12 @@
 package edu.ijse.learners.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "payments")
-public class Payment {
+public class Payments {
 
     @Id
     @Column
@@ -21,7 +23,7 @@ public class Payment {
 
     @ManyToOne
     @JoinColumn(name = "studentId", referencedColumnName = "studentId")
-    private Student student;
+    private Students student;
 
     @Column
     private Date paymentDate;

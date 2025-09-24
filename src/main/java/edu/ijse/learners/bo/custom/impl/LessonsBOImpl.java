@@ -1,37 +1,38 @@
 package edu.ijse.learners.bo.custom.impl;
 
-import edu.ijse.learners.bo.custom.LessonBO;
-import edu.ijse.learners.bo.util.EntityToDTO;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import edu.ijse.learners.bo.custom.LessonsBO;
+import edu.ijse.learners.bo.exception.DuplicateException;
+import edu.ijse.learners.bo.exception.NotFoundException;
+import edu.ijse.learners.bo.util.EntityDTOConverter;
 import edu.ijse.learners.dao.DAOFactory;
+import edu.ijse.learners.dao.DAOTypes;
 import edu.ijse.learners.dao.custom.CourseDAO;
 import edu.ijse.learners.dao.custom.InstructorDAO;
 import edu.ijse.learners.dao.custom.LessonsDAO;
 import edu.ijse.learners.dao.custom.QueryDAO;
-import edu.ijse.learners.dto.LessonDTO;
-import edu.ijse.learners.entity.Lesson;
-import edu.ijse.learners.exception.DuplicateException;
-import edu.ijse.learners.exception.NotFoundException;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import edu.ijse.learners.dto.LessonsDTO;
+import edu.ijse.learners.entity.Lessons;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class LessonBOImpl implements LessonBO {
+public class LessonsBOImpl implements LessonsBO {
 
-    private final LessonsDAO lessonsDAO = (LessonsDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.LESSONS);
-    private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.COURSE);
-    private final InstructorDAO instructorDAO =  (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.INSTRUCTORS);
-    private final QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOTypes.QUERY);
-    private final EntityToDTO entityToDTO = new EntityToDTO();
+    private final LessonsDAO lessonsDAO = (LessonsDAO) DAOFactory.getInstance().getDAO(DAOTypes.LESSONS);
+    private final CourseDAO courseDAO = (CourseDAO) DAOFactory.getInstance().getDAO(DAOTypes.COURSE);
+    private final InstructorDAO instructorDAO =  (InstructorDAO) DAOFactory.getInstance().getDAO(DAOTypes.INSTRUCTORS);
+    private final QueryDAO queryDAO = (QueryDAO) DAOFactory.getInstance().getDAO(DAOTypes.QUERY);
+    private final EntityDTOConverter converter = new EntityDTOConverter();
 
     @Override
-    public List<LessonDTO> getAllLessons() throws Exception {
-        List<Lesson> lessons = lessonsDAO.getAll();
-        List<LessonDTO> lessonsDTOS = new ArrayList<>();
-        for (Lesson lesson : lessons) {
-            lessonsDTOS.add(entityToDTO.getLessonsDTO(lesson));
+    public List<LessonsDTO> getAllLessons() throws Exception {
+        List<Lessons> lessons = lessonsDAO.getAll();
+        List<LessonsDTO> lessonsDTOS = new ArrayList<>();
+        for (Lessons lesson : lessons) {
+            lessonsDTOS.add(converter.getLessonsDTO(lesson));
         }
         return lessonsDTOS;
     }
@@ -42,28 +43,32 @@ public class LessonBOImpl implements LessonBO {
     }
 
     @Override
-    public boolean saveLessons(LessonDTO t) throws Exception {
+    public boolean saveLessons(LessonsDTO t) throws Exception {
+
+        //check course exist
         boolean courseExists = courseDAO.findById(t.getCourseId()).isPresent();
+
+        // check instructor exists
         boolean instructorExists = instructorDAO.findById(t.getCourseId()).isPresent();
 
         if (courseExists && instructorExists) {
-            return lessonsDAO.save(entityToDTO.getLessonsEntity(t));
+            return lessonsDAO.save(converter.getLessonsEntity(t));
         }
         throw new Exception("Lessons not saved");
     }
 
     @Override
-    public boolean updateLessons(LessonDTO t) throws Exception {
-        Optional<Lesson> lessons = lessonsDAO.findById(t.getLessonId());
+    public boolean updateLessons(LessonsDTO t) throws Exception {
+        Optional<Lessons> lessons = lessonsDAO.findById(t.getLessonId());
         if (lessons.isEmpty()) {
             throw new DuplicateException("Lessons Not Found");
         }
-        return lessonsDAO.update(entityToDTO.getLessonsEntity(t));
+        return lessonsDAO.update(converter.getLessonsEntity(t));
     }
 
     @Override
     public boolean deleteLessons(String id) throws Exception {
-        Optional<Lesson> lesson = lessonsDAO.findById(id);
+        Optional<Lessons> lesson = lessonsDAO.findById(id);
         if (lesson.isEmpty()) {
             throw new NotFoundException("Lesson not found");
         }
@@ -79,7 +84,7 @@ public class LessonBOImpl implements LessonBO {
 
             ButtonType result = alert.showAndWait().orElse(ButtonType.NO);
             if (result != ButtonType.YES) {
-                return false;
+                return false; // User cancelled deletion
             }
         }
 
@@ -92,10 +97,10 @@ public class LessonBOImpl implements LessonBO {
     }
 
     @Override
-    public Optional<LessonDTO> findByLessonId(String id) throws Exception {
-        Optional<Lesson> lessons = lessonsDAO.findById(id);
+    public Optional<LessonsDTO> findByLessonId(String id) throws Exception {
+        Optional<Lessons> lessons = lessonsDAO.findById(id);
         if (lessons.isPresent()) {
-            return Optional.of(entityToDTO.getLessonsDTO(lessons.get()));
+            return Optional.of(converter.getLessonsDTO(lessons.get()));
         }
         return Optional.empty();
     }

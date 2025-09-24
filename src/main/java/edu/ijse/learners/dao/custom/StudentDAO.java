@@ -1,11 +1,7 @@
 package edu.ijse.learners.dao.custom;
 
 import edu.ijse.learners.dao.CrudDAO;
-import edu.ijse.learners.entity.Lesson;
-import edu.ijse.learners.entity.Payment;
-import edu.ijse.learners.entity.Student;
+import edu.ijse.learners.entity.Students;
 
-import java.util.List;
-
-public interface StudentDAO extends CrudDAO<Student> {
+public interface StudentDAO extends CrudDAO<Students> {
 }

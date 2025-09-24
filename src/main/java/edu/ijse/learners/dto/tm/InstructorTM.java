@@ -1,4 +1,5 @@
-package edu.ijse.learners.tdm;
+package edu.ijse.learners.dto.tm;
+
 
 import javafx.scene.layout.Pane;
 import lombok.AllArgsConstructor;

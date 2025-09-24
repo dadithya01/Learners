@@ -2,7 +2,7 @@ package edu.ijse.learners.dao.custom.impl;
 
 import edu.ijse.learners.configuration.FactoryConfiguration;
 import edu.ijse.learners.dao.custom.PaymentDAO;
-import edu.ijse.learners.entity.Payment;
+import edu.ijse.learners.entity.Payments;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -10,17 +10,71 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class PaymentDAOImpl implements PaymentDAO {
+public class PaymentsDAOImpl implements PaymentDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
+    @Override
+    public boolean save(Payments payments) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.persist(payments);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            return false;
+        }finally {
+            session.close();
+        }
+    }
 
     @Override
-    public List<Payment> getAll() throws Exception {
+    public boolean update(Payments payments) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.merge(payments);
+            transaction.commit();
+            return true;
+        }catch (Exception e){
+            transaction.rollback();
+            return false;
+        }finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public boolean delete(String id) throws Exception {
+        Session session = factoryConfiguration.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            Payments payments = (Payments) session.get(Payments.class, id);
+            if (payments != null) {
+                session.remove(payments);
+                transaction.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List<Payments> getAll() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Payment> query = session.createQuery("from Payments ",Payment.class);
-            List<Payment> paymentsList = query.list();
+            Query<Payments> query = session.createQuery("from Payments ",Payments.class);
+            List<Payments> paymentsList = query.list();
             return paymentsList;
         }finally {
             session.close();
@@ -44,61 +98,6 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public boolean save(Payment payment) throws Exception {
-        Session session = factoryConfiguration.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.persist(payment);
-            transaction.commit();
-            return true;
-        }catch (Exception e){
-            transaction.rollback();
-            return false;
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean update(Payment payment) throws Exception {
-        Session session = factoryConfiguration.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.merge(payment);
-            transaction.commit();
-            return true;
-        }catch (Exception e){
-            transaction.rollback();
-            return false;
-        }finally {
-            session.close();
-        }
-    }
-
-    @Override
-    public boolean delete(String id) throws Exception {
-        Session session = factoryConfiguration.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            Payment payments = (Payment) session.get(Payment.class, id);
-            if (payments != null) {
-                session.remove(payments);
-                transaction.commit();
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        } finally {
-            session.close();
-        }
-    }
-
-    @Override
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
@@ -110,10 +109,10 @@ public class PaymentDAOImpl implements PaymentDAO {
     }
 
     @Override
-    public Optional<Payment> findById(String id) throws Exception {
+    public Optional<Payments> findById(String id) throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Payment payments = session.get(Payment.class, id);
+            Payments payments = session.get(Payments.class, id);
             return Optional.ofNullable(payments);
         } finally {
             session.close();

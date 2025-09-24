@@ -1,9 +1,12 @@
 package edu.ijse.learners.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -22,7 +25,9 @@ public class StudentDTO {
     private Date registrationDate;
     private List<String> courseIds;
     @Builder.Default
-    private ArrayList<LessonDTO> lessons =new ArrayList<>();
+    private ArrayList<StudentCourseDetailsDTO> studentCourseDetails = new ArrayList<>();
     @Builder.Default
-    private ArrayList<PaymentDTO> payments =new ArrayList<>();
+    private ArrayList<LessonsDTO> lessons =new ArrayList<>();
+    @Builder.Default
+    private ArrayList<PaymentsDTO> payments =new ArrayList<>();
 }

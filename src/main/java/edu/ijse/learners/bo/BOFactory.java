@@ -1,35 +1,29 @@
 package edu.ijse.learners.bo;
 
+import edu.ijse.learners.bo.custom.impl.CourseBOImpl;
 import edu.ijse.learners.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
-    private BOFactory(){}
+
+    private BOFactory() {}
 
     public static BOFactory getInstance() {
-        return (boFactory == null)?boFactory = new BOFactory() : boFactory;
+        return boFactory == null ? (boFactory = new BOFactory()) : boFactory;
     }
 
-    public enum BOTypes{
-        STUDENT,
-        COURSE,
-        INSTRUCTORS,
-        LESSONS,
-        PAYMENTS,
-        USER,
-        QUERY
-    }
+    @SuppressWarnings("unchecked")
+    public <Hello extends SuperBO> Hello getBO(BOTypes boType) {
+        return switch (boType) {
+            case COURSE ->  (Hello) new CourseBOImpl();
+            case  INSTRUCTOR -> (Hello) new InstructorBOImpl();
+            case  LESSONS -> (Hello) new LessonsBOImpl();
+            case PAYMENTS ->  (Hello) new PaymentsBOImpl();
+            case QUERY ->   (Hello) new QueryBOImpl();
+            case STUDENT_COURSE_DETAILS -> (Hello) new StudentCourseDetailBOImpl();
+            case STUDENT -> (Hello) new StudentBOImpl();
+            case USER -> (Hello) new UserBOImpl();
 
-    public SuperBO getBO(BOTypes boTypes) {
-        return switch (boTypes){
-            case STUDENT ->  new StudentBOImpl();
-            case USER -> new UserBOImpl();
-            case COURSE -> new CourseBOImpl();
-            case INSTRUCTORS -> new InstructorBOImpl();
-            case LESSONS -> new LessonBOImpl();
-            case PAYMENTS -> new PaymentBOImpl();
-            case QUERY -> new QueryBOImpl();
-            default -> null;
         };
     }
 }

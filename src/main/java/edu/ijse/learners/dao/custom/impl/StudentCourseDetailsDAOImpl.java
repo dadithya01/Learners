@@ -1,8 +1,8 @@
 package edu.ijse.learners.dao.custom.impl;
 
 import edu.ijse.learners.configuration.FactoryConfiguration;
-import edu.ijse.learners.dao.custom.InstructorDAO;
-import edu.ijse.learners.entity.Instructor;
+import edu.ijse.learners.dao.custom.StudentCourseDetailDAO;
+import edu.ijse.learners.entity.StudentCourseDetails;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -10,17 +10,17 @@ import org.hibernate.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public class InstructorDAOImpl implements InstructorDAO {
+public class StudentCourseDetailsDAOImpl implements StudentCourseDetailDAO {
 
     private final FactoryConfiguration factoryConfiguration = FactoryConfiguration.getInstance();
 
-
     @Override
-    public boolean save(Instructor instructor) throws Exception {
+    public boolean save(StudentCourseDetails studentCourseDetails) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
+
         try {
-            session.persist(instructor);
+            session.persist(studentCourseDetails);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -32,11 +32,12 @@ public class InstructorDAOImpl implements InstructorDAO {
     }
 
     @Override
-    public boolean update(Instructor instructor) throws Exception {
+    public boolean update(StudentCourseDetails studentCourseDetails) throws Exception {
         Session session = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
+
         try {
-            session.merge(instructor);
+            session.merge(studentCourseDetails);
             transaction.commit();
             return true;
         }catch (Exception e){
@@ -49,12 +50,13 @@ public class InstructorDAOImpl implements InstructorDAO {
 
     @Override
     public boolean delete(String id) throws Exception {
-        Session session = factoryConfiguration.getSession();
+        Session session  = factoryConfiguration.getSession();
         Transaction transaction = session.beginTransaction();
+
         try {
-            Instructor instructor = (Instructor) session.get(Instructor.class, id);
-            if (instructor != null) {
-                session.remove(instructor);
+            StudentCourseDetails studentCourseDetails = (StudentCourseDetails) session.get(StudentCourseDetails.class, id);
+            if (studentCourseDetails != null) {
+                session.remove(studentCourseDetails);
                 transaction.commit();
                 return true;
             }
@@ -70,13 +72,14 @@ public class InstructorDAOImpl implements InstructorDAO {
         }
     }
 
+
     @Override
-    public List<Instructor> getAll() throws Exception {
+    public List<StudentCourseDetails> getAll() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<Instructor> query = session.createQuery("from Instructor ", Instructor.class);
-            List<Instructor> instructorList = query.list();
-            return instructorList;
+            Query<StudentCourseDetails> query = session.createQuery("from StudentCourseDetails where course.id=:courseId");
+            List<StudentCourseDetails> studentCourseDetailsList = query.list();
+            return studentCourseDetailsList;
         }finally {
             session.close();
         }
@@ -86,13 +89,13 @@ public class InstructorDAOImpl implements InstructorDAO {
     public String getLastId() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT i.instructorId FROM Instructor i ORDER BY i.instructorId DESC", String.class)
+            Query<String> query = session.createQuery("SELECT scd.studentCourseId FROM StudentCourseDetails scd ORDER BY scd.studentCourseId DESC", String.class)
                     .setMaxResults(1);
-            List<String> instructorsList = query.list();
-            if (instructorsList.isEmpty()) {
+            List<String> studentCourseList = query.list();
+            if (studentCourseList.isEmpty()) {
                 return null;
             }
-            return instructorsList.getFirst();
+            return studentCourseList.getFirst();
         } finally {
             session.close();
         }
@@ -103,19 +106,19 @@ public class InstructorDAOImpl implements InstructorDAO {
     public List<String> getAllIds() throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Query<String> query = session.createQuery("SELECT i.instructorId FROM Instructor i", String.class);
-            return query.list();
-        } finally {
+            Query<String> query = session.createQuery("SELECT scd.studentCourseId FROM StudentCourseDetails scd", String.class);
+            return   query.list();
+        }finally {
             session.close();
         }
     }
 
     @Override
-    public Optional<Instructor> findById(String id) throws Exception {
+    public Optional<StudentCourseDetails> findById(String id) throws Exception {
         Session session = factoryConfiguration.getSession();
         try {
-            Instructor instructor = session.get(Instructor.class, id);
-            return Optional.ofNullable(instructor);
+            StudentCourseDetails studentCourseDetails = session.get(StudentCourseDetails.class, id);
+            return Optional.ofNullable(studentCourseDetails);
         } finally {
             session.close();
         }
@@ -130,11 +133,11 @@ public class InstructorDAOImpl implements InstructorDAO {
             throw new RuntimeException(e);
         }
         if (lastId == null) {
-            return "I-001";
+            return "SCD-001";
         } else {
             int num = Integer.parseInt(lastId.split("-")[1]);
             num++;
-            return String.format("I-%03d", num);
+            return String.format("SCD-%03d", num);
         }
     }
 }
