@@ -45,11 +45,9 @@ public class LessonsBOImpl implements LessonsBO {
     @Override
     public boolean saveLessons(LessonsDTO t) throws Exception {
 
-        // check course exists
         boolean courseExists = courseDAO.findById(t.getCourseId()).isPresent();
 
-        // check instructor exists
-        boolean instructorExists = instructorDAO.findById(t.getInstructorId()).isPresent(); // <-- CORRECTED
+        boolean instructorExists = instructorDAO.findById(t.getInstructorId()).isPresent();
 
         if (courseExists && instructorExists) {
             return lessonsDAO.save(converter.getLessonsEntity(t));
