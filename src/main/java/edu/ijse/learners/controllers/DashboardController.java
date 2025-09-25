@@ -94,8 +94,10 @@ public class DashboardController implements Initializable {
         }
     }
 
-    public void goTOComponents(MouseEvent mouseEvent) {
-
+    @FXML
+    void lesson(ActionEvent event) throws IOException {
+            navigateTo("/view/LessonsManagePage.fxml");
+            backDashboard("Lesson Management");
     }
 
 
