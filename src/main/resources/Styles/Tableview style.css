@@ -1,0 +1,41 @@
+/* Style for the TableView itself */
+.table-view {
+    -fx-background-color: #F5F3F8;
+    -fx-background-radius: 20px;
+    -fx-border-radius: 20px;
+}
+
+/* Style for the TableView headers */
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+/* Style for the column header cells */
+.table-view .column-header {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Style for the table cells */
+.table-view .table-cell {
+    -fx-background-color: transparent;
+    -fx-alignment: CENTER; /* Centers the content in each cell */
+    -fx-border-color: #e0e0e0;
+}
+
+/* Style for table rows */
+.table-view .table-row-cell {
+    -fx-background-color: #F5F3F8;
+    -fx-cell-size: 40px; /* Adjust row height */
+}
+
+/* Hover effect on rows */
+.table-view .table-row-cell:hover {
+    -fx-background-color: #ddd;
+}
+
+/* Selected row style */
+.table-view .table-row-cell:selected {
+    -fx-background-color: #c9c9c9;
+}

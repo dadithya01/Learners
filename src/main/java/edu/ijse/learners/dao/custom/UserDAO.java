@@ -4,4 +4,5 @@ import edu.ijse.learners.dao.CrudDAO;
 import edu.ijse.learners.entity.User;
 
 public interface UserDAO extends CrudDAO<User> {
+    public User getUserByEmail(String email);
 }

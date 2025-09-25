@@ -5,19 +5,20 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.learners.controllers.CourseManegePageController">
     <children>
-          <Button fx:id="btnAdd" layoutX="23.0" layoutY="701.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="54.0" prefWidth="194.0" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Add Student" textFill="WHITE">
+          <Button fx:id="btnAdd" layoutX="23.0" layoutY="716.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="54.0" prefWidth="204.0" stylesheets="@../Styles/Btn.css" text="Add Student">
               <font>
                   <Font name="System Bold" size="20.0" />
               </font>
           </Button>
-      <VBox layoutX="23.0" layoutY="89.0">
+      <VBox layoutX="23.0" layoutY="89.0" AnchorPane.bottomAnchor="96.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="114.0">
          <children>
-                <TableView fx:id="tblCourse" onMouseClicked="#onClickTable" prefHeight="598.0" prefWidth="1154.0" style="-fx-background-color: #F5F3F8; -fx-background-radius: 20px;">
+                <TableView fx:id="tblCourse" onMouseClicked="#onClickTable" prefHeight="598.0" prefWidth="1154.0" stylesheets="@../Styles/Tableview%20style.css">
                     <columns>
                         <TableColumn fx:id="colId" prefWidth="75.0" style="-fx-background-color: transparent;" text="Course Id" />
                         <TableColumn fx:id="colCourseName" prefWidth="75.0" style="-fx-background-color: transparent;" text="name" />
@@ -33,10 +34,14 @@
                 </TableView>
          </children>
       </VBox>
-      <Label layoutX="455.0" layoutY="34.0" text="Course Management">
-         <font>
-            <Font name="System Bold" size="25.0" />
-         </font>
-      </Label>
+      <BorderPane layoutX="455.0" layoutY="34.0">
+         <center>
+            <Label text="Course Management">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Label>
+         </center>
+      </BorderPane>
     </children>
 </AnchorPane>

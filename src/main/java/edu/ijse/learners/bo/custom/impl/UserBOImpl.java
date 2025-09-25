@@ -81,4 +81,20 @@ public class UserBOImpl implements UserBO {
     public String generateNextUserId() {
         return userDAO.generateNewId();
     }
+
+    @Override
+    public UserDTO getUserByEmail(String email) {
+        User user = userDAO.getUserByEmail(email);
+
+        // 2. Check if the user object is null before trying to use it
+        if (user != null) {
+            // If user is not null, proceed as normal
+            return converter.getUserDTO(user);
+        } else {
+            // Handle the case where the user was not found
+            // You can return null, throw an exception, or return an empty object
+            System.out.println("No user found with that email: " + email);
+            return null; // or throw new NotFoundException("User not found");
+        }
+    }
 }

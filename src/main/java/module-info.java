@@ -8,6 +8,7 @@ module edu.ijse.learners {
     requires jbcrypt;
     requires javafx.base;
     requires javafx.graphics;
+    requires java.sql;
 
 
     opens edu.ijse.learners.configuration to jakarta.persistence;

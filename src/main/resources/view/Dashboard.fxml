@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane onDragDetected="#btnStudentOnAction" prefHeight="917.0" prefWidth="1489.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.learners.controllers.DashboardController">
+<AnchorPane fx:id="ancfull" prefHeight="917.0" prefWidth="1489.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.ijse.learners.controllers.DashboardController">
    <children>
       <VBox prefHeight="784.0" prefWidth="300.0" spacing="25.0" style="-fx-background-color: #F5F3F8; -fx-border-radius: 20px; -fx-background-radius: 20px;" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
          <children>

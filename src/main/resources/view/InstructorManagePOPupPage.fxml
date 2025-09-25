@@ -40,7 +40,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                         </Label>
-                        <TextField fx:id="txtFirstName" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: transparent;">
+                        <TextField fx:id="txtFirstName" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="Adithya" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
@@ -63,7 +63,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                         </Label>
-                        <TextField fx:id="txtLastNam" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="student" style="-fx-background-color: transparent;">
+                        <TextField fx:id="txtLastNam" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="Peiris" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
@@ -86,7 +86,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                         </Label>
-                        <TextField fx:id="txtEmail" alignment="CENTER" prefHeight="39.0" prefWidth="296.0" promptText="student@gmail.com" style="-fx-background-color: transparent;">
+                        <TextField fx:id="txtEmail" alignment="CENTER" prefHeight="39.0" prefWidth="296.0" promptText="adithya@gmail.com" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>
@@ -109,7 +109,7 @@
                         <Font name="System Bold" size="13.0" />
                      </font>
                         </Label>
-                        <TextField fx:id="txtContact" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="0000000000" style="-fx-background-color: transparent;">
+                        <TextField fx:id="txtContact" alignment="CENTER" prefHeight="30.0" prefWidth="250.0" promptText="0718189789" style="-fx-background-color: transparent;">
                             <HBox.margin>
                                 <Insets bottom="5.0" left="20.0" />
                             </HBox.margin>

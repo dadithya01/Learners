@@ -1,0 +1,18 @@
+/* Style for all buttons with the class 'black-button' */
+.button {
+    -fx-background-color: black;
+    -fx-background-radius: 100px;
+    -fx-text-fill: white;
+    -fx-font-family: "System Bold";
+    -fx-font-size: 25.0px;
+    -fx-cursor: hand; /* Change the cursor to a hand pointer */
+}
+
+/* Hover effect for buttons */
+.button:hover {
+    -fx-background-color: transparent;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-radius;100px;
+}

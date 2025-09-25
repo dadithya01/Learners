@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
 
+    public AnchorPane ancfull;
     public AnchorPane ancDashboard;
     public StackPane stackPaneComponent;
 
@@ -71,8 +72,10 @@ public class DashboardController implements Initializable {
     }
 
     @FXML
-    void logOut(MouseEvent event) {
-        navigateTo("/view/CourseManagePage.fxml");
+    void logOut(MouseEvent event) throws IOException {
+        ancDashboard.getChildren().clear();
+        AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/LoginPage.fxml"));
+        ancDashboard.getChildren().add(anchorPane);
     }
 
     public void btnUserOnAction(ActionEvent actionEvent) throws IOException {
